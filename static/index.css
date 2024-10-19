@@ -1,10 +1,5 @@
-  /* The * selector selects all elements. The * selector can also select all elements inside another element (See "More Examples").
- 
-*/
 
 *{
-    /* height: 100%;
-    width: 100%; */
     padding: 0;
     margin: 0;
     text-decoration: none;
@@ -228,16 +223,6 @@
     height: 300px;
     width: 300px;
     border-radius: 1000px;
-    /* HERE KATIE HERE */
-    /* 
-      background-color: white;
-    border-radius: 10%;
-    width: 35%;
-    height: 45%
-    background-color: white;
-    border: solid #9fb098ff 5px;
-    padding: 10px;
-    border-radius: 10px; */
   }
   
   
