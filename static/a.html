@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU Org</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+    <h1 class="text-4xl font-bold text-blue-600 mb-8">API Tester</h1>
+
+    <div class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 mb-8">
+        <h3 class="text-2xl font-semibold mb-4">Register User</h3>
+        <div class="mb-4">
+            <label for="register-firstname" class="block text-gray-700 font-medium">First Name</label>
+            <input id="register-firstname" type="text" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="mb-4">
+            <label for="register-lastname" class="block text-gray-700 font-medium">Last Name</label>
+            <input id="register-lastname" type="text" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="mb-4">
+            <label for="register-email" class="block text-gray-700 font-medium">Email</label>
+            <input id="register-email" type="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="mb-4">
+            <label for="register-password" class="block text-gray-700 font-medium">Password</label>
+            <input id="register-password" type="password" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <button onclick="registerUser()" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Register</button>
+        <pre id="register-response" class="mt-4 bg-gray-100 p-4 border border-gray-300 rounded-md"></pre>
+    </div>
+
+    <div class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 mb-8">
+        <h3 class="text-2xl font-semibold mb-4">Login User</h3>
+        <div class="mb-4">
+            <label for="login-email" class="block text-gray-700 font-medium">Email</label>
+            <input id="login-email" type="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="mb-4">
+            <label for="login-password" class="block text-gray-700 font-medium">Password</label>
+            <input id="login-password" type="password" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <button onclick="loginUser()" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Login</button>
+        <pre id="login-response" class="mt-4 bg-gray-100 p-4 border border-gray-300 rounded-md"></pre>
+    </div>
+
+    <div class="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
+        <h3 class="text-2xl font-semibold mb-4">Get Current User</h3>
+        <button onclick="getCurrentUser()" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Get User Info</button>
+        <pre id="me-response" class="mt-4 bg-gray-100 p-4 border border-gray-300 rounded-md"></pre>
+    </div>
+
+    <script>
+        let token = '';
+
+        async function registerUser() {
+            const firstName = document.getElementById('register-firstname').value;
+            const lastName = document.getElementById('register-lastname').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            const response = await fetch('/users/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ first_name: firstName, last_name: lastName, email: email, password: password }),
+            });
+
+            const data = await response.json();
+            document.getElementById('register-response').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function loginUser() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const response = await fetch('/users/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password }),
+            });
+
+            const data = await response.json();
+            document.getElementById('login-response').textContent = JSON.stringify(data, null, 2);
+            if (data.access_token) token = data.access_token;
+        }
+
+        async function getCurrentUser() {
+            const response = await fetch('/users/me', {
+                method: 'GET',
+                headers: { 'Authorization': 'Bearer ' + token },
+            });
+
+            const data = await response.json();
+            document.getElementById('me-response').textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
