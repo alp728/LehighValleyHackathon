@@ -13,7 +13,6 @@ from sqlalchemy.orm import Session
 
 from app.config.settings import Settings
 from app.db import models
-from app.db.models import UserRequest
 from app.schemas.user import UserCreate
 
 settings = Settings()

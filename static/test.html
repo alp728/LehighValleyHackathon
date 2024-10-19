@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Tester</h1>
+
+    <div class="container">
+        <h3>Register User</h3>
+        <label for="register-firstname">First Name</label>
+        <input id="register-firstname" type="text" />
+
+        <label for="register-lastname">Last Name</label>
+        <input id="register-lastname" type="text" />
+
+        <label for="register-email">Email</label>
+        <input id="register-email" type="email" />
+
+        <label for="register-password">Password</label>
+        <input id="register-password" type="password" />
+
+        <button onclick="registerUser()">Register</button>
+
+        <pre id="register-response"></pre>
+    </div>
+
+    <div class="container">
+        <h3>Login User</h3>
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" />
+
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" />
+
+        <button onclick="loginUser()">Login</button>
+
+        <pre id="login-response"></pre>
+    </div>
+
+    <div class="container">
+        <h3>Get Current User</h3>
+        <button onclick="getCurrentUser()">Get User Info</button>
+        <pre id="me-response"></pre>
+    </div>
+
+    <script>
+        let token = '';
+
+        // Register a new user
+        async function registerUser() {
+            const firstName = document.getElementById('register-firstname').value;
+            const lastName = document.getElementById('register-lastname').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            const response = await fetch('/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+            document.getElementById('register-response').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Log in the user
+        async function loginUser() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const response = await fetch('/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, password: password }),
+            });
+
+            const data = await response.json();
+            document.getElementById('login-response').textContent = JSON.stringify(data, null, 2);
+            if (data.access_token) {
+                token = data.access_token; // Save token for authenticated requests
+            }
+        }
+
+        // Get the current logged-in user
+        async function getCurrentUser() {
+            const response = await fetch('/users/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+            });
+
+            const data = await response.json();
+            document.getElementById('me-response').textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>

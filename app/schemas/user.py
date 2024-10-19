@@ -2,7 +2,6 @@ from pydantic import BaseModel, EmailStr, conint, constr, validator
 from typing import List, Optional
 
 class TokenResponse(BaseModel):
-    is_superuser: bool
     access_token: str
     token_type: str
 

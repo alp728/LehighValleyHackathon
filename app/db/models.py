@@ -27,7 +27,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     first_name = Column(Text, nullable=False)
     last_name = Column(Text, nullable=False)
-    email = Column(Text, unique=True, index=True)
+    email = Column(VARCHAR(255), unique=True, index=True)
     profile_picture = Column(Text, nullable=True)
     password = Column(Text, nullable=False)
     

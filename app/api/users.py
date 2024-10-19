@@ -62,10 +62,7 @@ def login_user(login: UserLogin, db: Session = Depends(get_db)):
 
     email, password = login.email, login.password
     user = crud.get_user_by_email(db, email=email)
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="User account is disabled"
-        )
+ 
 
     if user is None:
         raise HTTPException(
@@ -126,47 +123,6 @@ def reset_password(
         )
     updated_user = crud.update_user_password(db, user.id, data.new_password)
     return {"message": "Password updated successfully"}
-
-# prolly wont have time to implement this
-# @router.post("/password/reset")
-# def forgot_password(data: ForgotPassword, db: Session = Depends(get_db)):
-#     user = crud.get_user_by_email(db, data.email)
-#     if user:
-#         request = crud.create_password_request(db, user)
-#         if request:
-#             EmailService.forgot_password(request.email, request.token)
-
-#     return {
-#         "message": "if this email is associated with a valid account you will recieve a code shortly."
-#     }
-
-
-# @router.post("/password/change")
-# def accept_fp(data: FPAccept, db: Session = Depends(get_db)):
-#     user_request = (
-#         db.query(models.UserRequest)
-#         .filter(
-#             models.UserRequest.token == data.code, models.UserRequest.is_active == True
-#         )
-#         .first()
-#     )
-
-#     if (
-#         (data.password != data.confirm_password)
-#         or not user_request
-#         or str(data.email) != str(user_request.email)
-#     ):
-#         raise HTTPException(
-#             status_code=422, detail="one or more of the inputs is invalid"
-#         )
-
-#     setattr(user_request, "is_active", False)
-#     db.commit()
-
-#     user = crud.get_user_by_email(db, user_request.email)
-#     updated_user = crud.update_user_password(db, user.id, data.password)
-#     return {"message": "Password updated successfully"}
-
 
 @router.post("/picture/{user_id}")
 async def change_profile_picture(

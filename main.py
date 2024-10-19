@@ -27,6 +27,7 @@ app.add_middleware(
 
 # Include API routers
 app.include_router(users.router, prefix="/users", tags=["users"])
+app.mount("/static", StaticFiles(directory="static"), name="static")
 # app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
 # Create tables in the database
