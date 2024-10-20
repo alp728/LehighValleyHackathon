@@ -1,9 +1,17 @@
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException
+
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
-from app.db.crud import create_calendar_source, add_calendar_event, get_user_calendar, delete_calendar_source, get_source_id_by_name
-from app.schemas.calendar import CalendarSourceCreate, CalendarEventCreate, CalendarEventResponse, CalendarSourceResponse
+
 from app.core import get_current_active_user, get_db
+from app.db.crud import (add_calendar_event, create_calendar_source,
+                         delete_calendar_source, get_source_id_by_name,
+                         get_user_calendar)
+from app.schemas.ai import AIEventExtractionResponse, AIUpdateResponse
+from app.schemas.calendar import (AssignmentUploadResponse,
+                                  CalendarEventCreate, CalendarEventResponse,
+                                  CalendarSourceCreate, CalendarSourceResponse,
+                                  EventUploadResponse)
 
 router = APIRouter()
 

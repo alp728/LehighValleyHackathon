@@ -194,11 +194,14 @@ def get_source_id_by_name(db: Session, user_id: int, source_name: str):
     if source:
         return source.id
     else:
-        raise HTTPException(status_code=404, detail="Calendar source not found")
+        return None
 
 
 def get_user_calendar(db: Session, user_id: int):
     return db.query(models.UserCalendar).filter(models.UserCalendar.user_id == user_id).all()
+
+def get_user_calendar_event(db: Session, user_id: int, event_id: int):
+    return db.query(models.UserCalendar).filter(models.UserCalendar.id == event_id, models.CalendarSource.user_id == user_id).first()
 
 def delete_calendar_source(db: Session, source_id: int, user_id: int):
     source = db.query(models.CalendarSource).filter(models.CalendarSource.id == source_id, models.CalendarSource.user_id == user_id).first()
@@ -207,6 +210,20 @@ def delete_calendar_source(db: Session, source_id: int, user_id: int):
     db.delete(source)
     db.commit()
     return source
+
+def update_task_priority(db: Session, event_id: int, task_priority: int, user_id: int):
+    event = db.query(models.UserCalendar).filter(models.UserCalendar.id == event_id, models.CalendarSource.user_id == user_id).first()
+
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    event.task_priority = task_priority
+
+    db.commit()
+    db.refresh(event)
+
+    return event
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

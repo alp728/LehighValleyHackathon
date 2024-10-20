@@ -1,0 +1,32 @@
+"filename", "language", "Python", "pip requirements", "Markdown", "HTML", "JavaScript", "CSS", "comment", "blank", "total"
+"/Users/ilumn/Projects/LehighValleyHackathon/README.md", "Markdown", 0, 0, 2, 0, 0, 0, 0, 1, 3
+"/Users/ilumn/Projects/LehighValleyHackathon/app/__init__.py", "Python", 8, 0, 0, 0, 0, 0, 1, 7, 16
+"/Users/ilumn/Projects/LehighValleyHackathon/app/api/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/api/calendar.py", "Python", 20, 0, 0, 0, 0, 0, 0, 6, 26
+"/Users/ilumn/Projects/LehighValleyHackathon/app/api/users.py", "Python", 170, 0, 0, 0, 0, 0, 44, 37, 251
+"/Users/ilumn/Projects/LehighValleyHackathon/app/config/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/config/settings.py", "Python", 12, 0, 0, 0, 0, 0, 1, 5, 18
+"/Users/ilumn/Projects/LehighValleyHackathon/app/core.py", "Python", 50, 0, 0, 0, 0, 0, 4, 16, 70
+"/Users/ilumn/Projects/LehighValleyHackathon/app/db/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/db/crud.py", "Python", 127, 0, 0, 0, 0, 0, 46, 43, 216
+"/Users/ilumn/Projects/LehighValleyHackathon/app/db/database.py", "Python", 8, 0, 0, 0, 0, 0, 0, 3, 11
+"/Users/ilumn/Projects/LehighValleyHackathon/app/db/models.py", "Python", 54, 0, 0, 0, 0, 0, 0, 11, 65
+"/Users/ilumn/Projects/LehighValleyHackathon/app/dependencies/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/dependencies/auth.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/schemas/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/schemas/calendar.py", "Python", 26, 0, 0, 0, 0, 0, 0, 7, 33
+"/Users/ilumn/Projects/LehighValleyHackathon/app/schemas/user.py", "Python", 43, 0, 0, 0, 0, 0, 0, 19, 62
+"/Users/ilumn/Projects/LehighValleyHackathon/app/services/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/utils/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/app/utils/auth.py", "Python", 10, 0, 0, 0, 0, 0, 0, 6, 16
+"/Users/ilumn/Projects/LehighValleyHackathon/app/utils/common.py", "Python", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/ilumn/Projects/LehighValleyHackathon/main.py", "Python", 44, 0, 0, 0, 0, 0, 9, 13, 66
+"/Users/ilumn/Projects/LehighValleyHackathon/requirements.txt", "pip requirements", 0, 71, 0, 0, 0, 0, 0, 1, 72
+"/Users/ilumn/Projects/LehighValleyHackathon/static/a.html", "HTML", 0, 0, 0, 87, 0, 0, 0, 13, 100
+"/Users/ilumn/Projects/LehighValleyHackathon/static/code.css", "CSS", 0, 0, 0, 0, 0, 55, 5, 11, 71
+"/Users/ilumn/Projects/LehighValleyHackathon/static/code.html", "HTML", 0, 0, 0, 40, 0, 0, 4, 19, 63
+"/Users/ilumn/Projects/LehighValleyHackathon/static/code.js", "JavaScript", 0, 0, 0, 0, 92, 0, 2, 9, 103
+"/Users/ilumn/Projects/LehighValleyHackathon/static/index.css", "CSS", 0, 0, 0, 0, 0, 233, 23, 71, 327
+"/Users/ilumn/Projects/LehighValleyHackathon/static/script.js", "JavaScript", 0, 0, 0, 0, 17, 0, 10, 8, 35
+"/Users/ilumn/Projects/LehighValleyHackathon/static/test.html", "HTML", 0, 0, 0, 223, 0, 0, 6, 43, 272
+"Total", "-", 572, 71, 2, 350, 109, 288, 155, 358, 1905

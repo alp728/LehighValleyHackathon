@@ -1,0 +1,78 @@
+Date : 2024-10-20 03:40:27
+Directory : /Users/ilumn/Projects/LehighValleyHackathon
+Total : 35 files,  2686 codes, 235 comments, 590 blanks, all 3511 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| CSS              |          3 |        948 |         78 |        207 |      1,233 |
+| Python           |         24 |        875 |        119 |        224 |      1,218 |
+| HTML             |          3 |        454 |         17 |        112 |        583 |
+| JavaScript       |          3 |        336 |         21 |         45 |        402 |
+| pip requirements |          1 |         71 |          0 |          1 |         72 |
+| Markdown         |          1 |          2 |          0 |          1 |          3 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                     | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                        |         35 |      2,686 |        235 |        590 |      3,511 |
+| . (Files)                                                                |          3 |        118 |          9 |         15 |        142 |
+| app                                                                      |         23 |        830 |        110 |        211 |      1,151 |
+| app (Files)                                                              |          2 |         58 |          5 |         23 |         86 |
+| app/api                                                                  |          4 |        245 |         44 |         50 |        339 |
+| app/config                                                               |          2 |         13 |          1 |          6 |         20 |
+| app/db                                                                   |          4 |        200 |         46 |         65 |        311 |
+| app/dependencies                                                         |          2 |          0 |          0 |          2 |          2 |
+| app/schemas                                                              |          4 |         98 |          0 |         35 |        133 |
+| app/services                                                             |          2 |        206 |         14 |         22 |        242 |
+| app/utils                                                                |          3 |         10 |          0 |          8 |         18 |
+| static                                                                   |          9 |      1,738 |        116 |        364 |      2,218 |
+| static (Files)                                                           |          4 |        932 |         57 |        170 |      1,159 |
+| static/ref                                                               |          3 |        578 |         38 |        140 |        756 |
+| static/v1                                                                |          2 |        228 |         21 |         54 |        303 |
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                 | language         | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| /Users/ilumn/Projects/LehighValleyHackathon/README.md                    | Markdown         |          2 |          0 |          1 |          3 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/__init__.py              | Python           |          8 |          1 |          7 |         16 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/api/__init__.py          | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/api/ai.py                | Python           |         49 |          0 |          5 |         54 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/api/calendar.py          | Python           |         26 |          0 |          7 |         33 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/api/users.py             | Python           |        170 |         44 |         37 |        251 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/config/__init__.py       | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/config/settings.py       | Python           |         13 |          1 |          5 |         19 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/core.py                  | Python           |         50 |          4 |         16 |         70 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/db/__init__.py           | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/db/crud.py               | Python           |        137 |         46 |         50 |        233 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/db/database.py           | Python           |          8 |          0 |          3 |         11 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/db/models.py             | Python           |         55 |          0 |         11 |         66 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/dependencies/__init__.py | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/dependencies/auth.py     | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/schemas/__init__.py      | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/schemas/ai.py            | Python           |         15 |          0 |          4 |         19 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/schemas/calendar.py      | Python           |         40 |          0 |         11 |         51 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/schemas/user.py          | Python           |         43 |          0 |         19 |         62 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/services/__init__.py     | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/services/ai.py           | Python           |        206 |         14 |         21 |        241 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/utils/__init__.py        | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/utils/auth.py            | Python           |         10 |          0 |          6 |         16 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/utils/common.py          | Python           |          0 |          0 |          1 |          1 |
+| /Users/ilumn/Projects/LehighValleyHackathon/main.py                      | Python           |         45 |          9 |         13 |         67 |
+| /Users/ilumn/Projects/LehighValleyHackathon/requirements.txt             | pip requirements |         71 |          0 |          1 |         72 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/code.js               | JavaScript       |         92 |          2 |          9 |        103 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/ref/a.html            | HTML             |         87 |          0 |         27 |        114 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/ref/app.js            | JavaScript       |        135 |          7 |         19 |        161 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/ref/index.css         | CSS              |        356 |         31 |         94 |        481 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/script.js             | JavaScript       |        109 |         12 |         17 |        138 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/styles.css            | CSS              |        451 |         35 |         84 |        570 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/test.html             | HTML             |        280 |          8 |         60 |        348 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/v1/code.css           | CSS              |        141 |         12 |         29 |        182 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/v1/code.html          | HTML             |         87 |          9 |         25 |        121 |
+| Total                                                                    |                  |      2,686 |        235 |        590 |      3,511 |
++--------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
