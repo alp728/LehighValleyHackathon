@@ -35,6 +35,10 @@ app.include_router(ai.router, prefix="/upload", tags=["ai"])
 async def serve_a_html():
     return FileResponse("static/index.html")
 
+@app.get("/accounts")
+async def serve_a_html():
+    return FileResponse("static/test.html")
+
 app.mount("/", StaticFiles(directory="static"), name="static")
 # app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
