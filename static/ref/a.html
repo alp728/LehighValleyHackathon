@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LU Org</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
     <h1 class="text-4xl font-bold text-blue-600 mb-8">API Tester</h1>
+
 
     <div class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 mb-8">
         <h3 class="text-2xl font-semibold mb-4">Register User</h3>
@@ -31,6 +34,7 @@
         <pre id="register-response" class="mt-4 bg-gray-100 p-4 border border-gray-300 rounded-md"></pre>
     </div>
 
+
     <div class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 mb-8">
         <h3 class="text-2xl font-semibold mb-4">Login User</h3>
         <div class="mb-4">
@@ -45,14 +49,17 @@
         <pre id="login-response" class="mt-4 bg-gray-100 p-4 border border-gray-300 rounded-md"></pre>
     </div>
 
+
     <div class="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
         <h3 class="text-2xl font-semibold mb-4">Get Current User</h3>
         <button onclick="getCurrentUser()" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Get User Info</button>
         <pre id="me-response" class="mt-4 bg-gray-100 p-4 border border-gray-300 rounded-md"></pre>
     </div>
 
+
     <script>
         let token = '';
+
 
         async function registerUser() {
             const firstName = document.getElementById('register-firstname').value;
@@ -60,19 +67,23 @@
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
 
+
             const response = await fetch('/users/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ first_name: firstName, last_name: lastName, email: email, password: password }),
             });
 
+
             const data = await response.json();
             document.getElementById('register-response').textContent = JSON.stringify(data, null, 2);
         }
 
+
         async function loginUser() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+
 
             const response = await fetch('/users/login', {
                 method: 'POST',
@@ -80,16 +91,19 @@
                 body: JSON.stringify({ email: email, password: password }),
             });
 
+
             const data = await response.json();
             document.getElementById('login-response').textContent = JSON.stringify(data, null, 2);
             if (data.access_token) token = data.access_token;
         }
+
 
         async function getCurrentUser() {
             const response = await fetch('/users/me', {
                 method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + token },
             });
+
 
             const data = await response.json();
             document.getElementById('me-response').textContent = JSON.stringify(data, null, 2);

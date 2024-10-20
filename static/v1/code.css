@@ -1,0 +1,181 @@
+html {
+    scroll-behavior: smooth;
+}
+
+*{
+    /* background-color: rgb(158, 150, 140); */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav ul{
+    display: flex; 
+    flex-direction: row;
+    list-style: none; 
+}
+
+li{
+    margin-right: 100px;
+}
+
+nav{
+    padding: 20px;
+    color: rgb(79, 153, 233);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* background-color: #f4f4f4; */
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#calendar {
+    width: 100%;
+    /* max-width: 1000px; */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+
+/* Style for parallax sections */
+.parallax {
+    /* height: 100vh; Full-screen height */
+    background-size: cover; /* Cover entire section */
+    background-position: center;
+    background-attachment: fixed; /* Creates the parallax effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parallax .content {
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5); /* Optional background to improve text readability */}
+
+.content-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+/* General Styles */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f8ff; /* Light blue background */
+    color: #333; /* Darker text for contrast */
+    text-align: center;
+}
+
+h1 {
+    color: #0044cc;
+    margin-bottom: 20px;
+    font-size: 70px;
+    /* margin-bottom: 24px; */
+    color: #fff;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #0044cc; /* Blue background */
+    padding: 20px;
+}
+
+.navbar__menu {
+    display: flex; 
+    justify-content: space-around;
+    list-style: none; 
+}
+
+.navbar__links {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 90%;
+    text-align: center;
+    padding: 30px;
+}
+
+.navbar__links:hover {
+    color: #add8e6; /* Light blue hover effect */
+}
+
+/* Calendar Styles */
+#calendar {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Upload Section */
+
+#uploadButton{
+    padding: 5px;    
+}
+
+
+/* Footer */
+footer {
+    background-color: #0044cc;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.hero__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 90%;
+    text-align: center;
+    padding: 30px;
+  }
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .navbar__menu {
+        flex-direction: column;
+    }
+
+    #calendar {
+        width: 100%;
+    }
+}

@@ -1,37 +1,60 @@
-// Get the button element
-const recommendBtn = document.querySelector('.recommendBtn button');
+const menu = document.querySelector('#mobile-menu');
+const menuLinks = document.querySelector('.navbar__menu');
+const navLogo = document.querySelector('#navbar__logo');
 
-// Array of different aesthetics
-const aesthetics = [
-  { bannerColor: '#f7d6e0', bannerTextColor: '#4d295a', captionColor: '#fef2bf', captionTextColor: '#735c00' },
-  { bannerColor: '#b0e5a1', bannerTextColor: '#2e663f', captionColor: '#f0f0f0', captionTextColor: '#333' },
-  // Add more aesthetic options here as desired
-];
+// Display Mobile Menu
+const mobileMenu = () => {
+  menu.classList.toggle('is-active');
+  menuLinks.classList.toggle('active');
+};
 
-// Initialize the current aesthetic index
-let currentAestheticIndex = 0;
+menu.addEventListener('click', mobileMenu);
 
-// Function to handle the click event and apply the next aesthetic
-function changeAesthetic() {
-  // Get the banner and captionText elements
-  const banner = document.querySelector('.banner');
-  const captionText = document.querySelector('.captionText');
+// Show active menu when scrolling
+const highlightMenu = () => {
+  const elem = document.querySelector('.highlight');
+  const homeMenu = document.querySelector('#home-page');
+  const aboutMenu = document.querySelector('#about-page');
+  const servicesMenu = document.querySelector('#services-page');
+  let scrollPos = window.scrollY;
+  // console.log(scrollPos);
 
-  // Get the next aesthetic from the array
-  const nextAesthetic = aesthetics[currentAestheticIndex];
+  // adds 'highlight' class to my menu items
+  if (window.innerWidth > 960 && scrollPos < 600) {
+    homeMenu.classList.add('highlight');
+    aboutMenu.classList.remove('highlight');
+    return;
+  } else if (window.innerWidth > 960 && scrollPos < 1400) {
+    aboutMenu.classList.add('highlight');
+    homeMenu.classList.remove('highlight');
+    servicesMenu.classList.remove('highlight');
+    return;
+  } else if (window.innerWidth > 960 && scrollPos < 2345) {
+    servicesMenu.classList.add('highlight');
+    aboutMenu.classList.remove('highlight');
+    return;
+  }
 
-  // Apply the new styles
-  banner.style.backgroundColor = nextAesthetic.bannerColor;
-  banner.style.color = nextAesthetic.bannerTextColor;
-  captionText.style.backgroundColor = nextAesthetic.captionColor;
-  captionText.style.color = nextAesthetic.captionTextColor;
+  if ((elem && window.innerWIdth < 960 && scrollPos < 600) || elem) {
+    elem.classList.remove('highlight');
+  }
+};
 
-  // Move to the next aesthetic (circular)
-  currentAestheticIndex = (currentAestheticIndex + 1) % aesthetics.length;
-}
+window.addEventListener('scroll', highlightMenu);
+window.addEventListener('click', highlightMenu);
 
-// Add a click event listener to the button
-recommendBtn.addEventListener('click', changeAesthetic);
+//  Close mobile Menu when clicking on a menu item
+const hideMobileMenu = () => {
+  const menuBars = document.querySelector('.is-active');
+  if (window.innerWidth <= 768 && menuBars) {
+    menu.classList.toggle('is-active');
+    menuLinks.classList.remove('active');
+  }
+};
+
+menuLinks.addEventListener('click', hideMobileMenu);
+navLogo.addEventListener('click', hideMobileMenu);
+
 
 const myHeading = document.querySelector("h1");
 myHeading.textContent = "LU Organizer Website";
