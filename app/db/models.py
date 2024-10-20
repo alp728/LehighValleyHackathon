@@ -23,8 +23,8 @@ Base = declarative_base()
 
 class CalendarSource(Base):
     __tablename__ = "calendar_sources"
-
     id = Column(Integer, primary_key=True, index=True)
+    source_name = Column(Text, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="calendar_sources")
     user_calendars = relationship("UserCalendar", back_populates="calendar_source")

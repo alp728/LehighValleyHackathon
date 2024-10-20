@@ -15,6 +15,7 @@ class CalendarSourceResponse(BaseModel):
 class CalendarEventCreate(BaseModel):
     event_name: str
     start_time: datetime
+    source_id: str
     end_time: datetime
     location: Optional[str]
     description: Optional[str]

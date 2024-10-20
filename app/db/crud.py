@@ -185,6 +185,18 @@ def add_calendar_event(db: Session, event_data: CalendarEventCreate, source_id: 
     db.refresh(calendar_event)
     return calendar_event
 
+def get_source_id_by_name(db: Session, user_id: int, source_name: str):
+    source = db.query(models.CalendarSource).filter(
+        models.CalendarSource.source_name == source_name,
+        models.CalendarSource.user_id == user_id
+    ).first()
+    
+    if source:
+        return source.id
+    else:
+        raise HTTPException(status_code=404, detail="Calendar source not found")
+
+
 def get_user_calendar(db: Session, user_id: int):
     return db.query(models.UserCalendar).filter(models.UserCalendar.user_id == user_id).all()
 
