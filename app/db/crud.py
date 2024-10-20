@@ -17,12 +17,12 @@ from app.schemas.user import UserCreate
 
 settings = Settings()
 
-s3_client = boto3.client(
-    "s3",
-    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-    region_name=settings.REGION_NAME,
-)
+# s3_client = boto3.client(
+#     "s3",
+#     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+#     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+#     region_name=settings.REGION_NAME,
+# )
 
 # CRUD Operations for User  
 def create_user(db: Session, user_create: UserCreate):
@@ -88,15 +88,15 @@ def patch_user(db: Session, user_id: int, updated_user: models.User):
         raise HTTPException(status_code=404, detail="User not found")
 
 
-def delete_file_from_bucket(bucket_name, file_name):
-    try:
+# def delete_file_from_bucket(bucket_name, file_name):
+#     try:
 
-        s3_client.delete_object(Bucket=bucket_name, Key=file_name)
-        print(f"File '{file_name}' deleted successfully from bucket '{bucket_name}'")
-    except Exception as e:
-        print(
-            f"Error deleting file '{file_name}' from bucket '{bucket_name}': {str(e)}"
-        )
+#         s3_client.delete_object(Bucket=bucket_name, Key=file_name)
+#         print(f"File '{file_name}' deleted successfully from bucket '{bucket_name}'")
+#     except Exception as e:
+#         print(
+#             f"Error deleting file '{file_name}' from bucket '{bucket_name}': {str(e)}"
+#         )
 
 
 def delete_user(db: Session, user_id: int):
@@ -128,34 +128,35 @@ def update_user_password(db: Session, user_id: int, new_password: str):
     db.refresh(db_user)
     return db_user
 
-def upload_profile_picture(db: Session, file: UploadFile, current_user: models.User):
-    try:
-        file_name = f"profile_picture_{current_user.id}_{int(time.time())}{os.path.splitext(file.filename)[1]}"
-        s3_client.upload_fileobj(file.file, settings.BUCKET_NAME, file_name)
+# aws was being a pain with the access and secret keys so we lost access to out bucket 😔
+# def upload_profile_picture(db: Session, file: UploadFile, current_user: models.User):
+#     try:
+#         file_name = f"profile_picture_{current_user.id}_{int(time.time())}{os.path.splitext(file.filename)[1]}"
+#         s3_client.upload_fileobj(file.file, settings.BUCKET_NAME, file_name)
 
-        current_user.profile_picture = (
-            f"https://{settings.BUCKET_NAME}.s3.amazonaws.com/{file_name}"
-        )
-        db.commit()
-        db.refresh(current_user)
-        print(get_user_by_id(db, current_user.id).profile_picture)
-        return file_name
-    except Exception as e:
-        db.rollback()
-        raise e
+#         current_user.profile_picture = (
+#             f"https://{settings.BUCKET_NAME}.s3.amazonaws.com/{file_name}"
+#         )
+#         db.commit()
+#         db.refresh(current_user)
+#         print(get_user_by_id(db, current_user.id).profile_picture)
+#         return file_name
+#     except Exception as e:
+#         db.rollback()
+#         raise e
 
-def generate_signed_url(db: Session, file_name: str):
-    try:
-        url = s3_client.generate_presigned_url(
-            "get_object",
-            Params={"Bucket": settings.BUCKET_NAME, "Key": file_name},
-            ExpiresIn=3600,
-        )
-        return url
-    except ClientError as e:
-        raise e
-    except Exception as e:
-        raise e
+# def generate_signed_url(db: Session, file_name: str):
+#     try:
+#         url = s3_client.generate_presigned_url(
+#             "get_object",
+#             Params={"Bucket": settings.BUCKET_NAME, "Key": file_name},
+#             ExpiresIn=3600,
+#         )
+#         return url
+#     except ClientError as e:
+#         raise e
+#     except Exception as e:
+#         raise e
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

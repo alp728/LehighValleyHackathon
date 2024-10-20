@@ -40,8 +40,7 @@
 <body>
     <h1>API Tester</h1>
 
-
-
+    <!-- Register User -->
     <div class="container">
         <h3>Register User</h3>
         <label for="register-firstname">First Name</label>
@@ -61,8 +60,7 @@
         <pre id="register-response"></pre>
     </div>
 
-
-
+    <!-- Login User -->
     <div class="container">
         <h3>Login User</h3>
         <label for="login-email">Email</label>
@@ -76,15 +74,25 @@
         <pre id="login-response"></pre>
     </div>
 
-
+    <!-- Get Current User -->
     <div class="container">
         <h3>Get Current User</h3>
         <button onclick="getCurrentUser()">Get User Info</button>
         <pre id="me-response"></pre>
     </div>
 
+    <!-- Upload Profile Picture -->
+    <div class="container">
+        <h3>Upload Profile Picture</h3>
+        <label for="profile-pic-file">Select Image</label>
+        <input id="profile-pic-file" type="file" />
+        <button onclick="uploadProfilePicture()">Upload Picture</button>
+        <pre id="picture-response"></pre>
+    </div>
+
     <script>
         let token = '';
+        let userId = '';
 
         // Register a new user
         async function registerUser() {
@@ -110,11 +118,12 @@
             document.getElementById('register-response').textContent = JSON.stringify(data, null, 2);
         }
 
-        // Log in the user
+        // Log in the user and fetch their details
         async function loginUser() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
+            // Log in to get the JWT token
             const response = await fetch('/users/login', {
                 method: 'POST',
                 headers: {
@@ -125,13 +134,15 @@
 
             const data = await response.json();
             document.getElementById('login-response').textContent = JSON.stringify(data, null, 2);
+
             if (data.access_token) {
                 token = data.access_token; // Save token for authenticated requests
+                await fetchCurrentUser(); // Fetch the current user data after login
             }
         }
 
-        // Get the current logged-in user
-        async function getCurrentUser() {
+        // Fetch the current user data and store the user ID
+        async function fetchCurrentUser() {
             const response = await fetch('/users/me', {
                 method: 'GET',
                 headers: {
@@ -141,6 +152,38 @@
 
             const data = await response.json();
             document.getElementById('me-response').textContent = JSON.stringify(data, null, 2);
+            userId = data.id; // Store the user ID for later use
+        }
+
+        // Get the current logged-in user
+        async function getCurrentUser() {
+            if (!userId) {
+                await fetchCurrentUser();
+            } else {
+                document.getElementById('me-response').textContent = "User ID already fetched: " + userId;
+            }
+        }
+
+        // Upload profile picture using the stored user ID
+        async function uploadProfilePicture() {
+            const fileInput = document.getElementById('profile-pic-file');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            if (!userId) {
+                await fetchCurrentUser();  // Ensure we have the user ID
+            }
+
+            const response = await fetch('/users/picture/' + userId, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                body: formData,
+            });
+
+            const data = await response.json();
+            document.getElementById('picture-response').textContent = JSON.stringify(data, null, 2);
         }
     </script>
 </body>
