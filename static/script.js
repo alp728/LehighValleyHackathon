@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    right: 'dayGridMonth, timeGridWeek, timeGridDay',
                 },
                 events: [
                     {
@@ -106,6 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             allDay: true,
                         });
                     }
+
+                    
                 },
             });
             calendar.render();

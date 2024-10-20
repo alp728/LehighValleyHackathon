@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
         events: function(fetchInfo, successCallback, failureCallback) {
             if (!accessToken) {
                 return failureCallback("User not authenticated.");
@@ -20,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => failureCallback(error));
         },
+
+
+        
         eventClick: function(info) {
             // Open modal and populate event details
             document.getElementById('modal-event-title').textContent = info.event.title;
@@ -44,6 +52,11 @@ document.addEventListener('DOMContentLoaded', function () {
             uploadCalendar(fileInput);
         }
     });
+
+    document.querySelector('.fc-today-button').addEventListener('click', function() {
+        calendar.today();
+    });
+    
 
     // Close event modal
     document.getElementById('close-modal').addEventListener('click', function() {
@@ -120,6 +133,9 @@ function uploadAssignment(eventId) {
     });
 }
 
+
+
+
 // Login user and retrieve access token
 function login() {
     const email = prompt("Email:");
@@ -161,6 +177,8 @@ function logout() {
     document.getElementById('logout-button').classList.add('hidden');
     location.reload();
 }
+
+console.log(FullCalendar.version);
 
 
 module.exports = {
