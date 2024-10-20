@@ -1,161 +1,163 @@
-const menu = document.querySelector('#mobile-menu');
-const menuLinks = document.querySelector('.navbar__menu');
-const navLogo = document.querySelector('#navbar__logo');
+let accessToken = null;
 
-// Display Mobile Menu
-const mobileMenu = () => {
-  menu.classList.toggle('is-active');
-  menuLinks.classList.toggle('active');
-};
-
-menu.addEventListener('click', mobileMenu);
-
-// Show active menu when scrolling
-const highlightMenu = () => {
-  const elem = document.querySelector('.highlight');
-  const homeMenu = document.querySelector('#home-page');
-  const aboutMenu = document.querySelector('#about-page');
-  const servicesMenu = document.querySelector('#services-page');
-  let scrollPos = window.scrollY;
-  // console.log(scrollPos);
-
-  // adds 'highlight' class to my menu items
-  if (window.innerWidth > 960 && scrollPos < 600) {
-    homeMenu.classList.add('highlight');
-    aboutMenu.classList.remove('highlight');
-    return;
-  } else if (window.innerWidth > 960 && scrollPos < 1400) {
-    aboutMenu.classList.add('highlight');
-    homeMenu.classList.remove('highlight');
-    servicesMenu.classList.remove('highlight');
-    return;
-  } else if (window.innerWidth > 960 && scrollPos < 2345) {
-    servicesMenu.classList.add('highlight');
-    aboutMenu.classList.remove('highlight');
-    return;
-  }
-
-  if ((elem && window.innerWIdth < 960 && scrollPos < 600) || elem) {
-    elem.classList.remove('highlight');
-  }
-};
-
-window.addEventListener('scroll', highlightMenu);
-window.addEventListener('click', highlightMenu);
-
-//  Close mobile Menu when clicking on a menu item
-const hideMobileMenu = () => {
-  const menuBars = document.querySelector('.is-active');
-  if (window.innerWidth <= 768 && menuBars) {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.remove('active');
-  }
-};
-
-menuLinks.addEventListener('click', hideMobileMenu);
-navLogo.addEventListener('click', hideMobileMenu);
-
-
-const myHeading = document.querySelector("h1");
-myHeading.textContent = "LU Organizer Website";
-
-window.addEventListener('scroll', function () {
-    const parallaxElements = document.querySelectorAll('.parallax');
-
-    parallaxElements.forEach(function (parallaxElement) {
-        let scrollPosition = window.pageYOffset;
-        parallaxElement.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
+// Initialize FullCalendar and event modal logic
+document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',  // Month view
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        events: [
-            {
-                title: 'Meeting',
-                start: '2024-10-20T10:30:00',
-                end: '2024-10-20T12:30:00',
-                description: 'Team Meeting'
-            },
-            {
-                title: 'Lunch Break',
-                start: '2024-10-22T13:00:00',
-                end: '2024-10-22T14:00:00'
-            },
-            {
-                title: 'Conference',
-                start: '2024-10-25',
-                end: '2024-10-27'
+        initialView: 'dayGridMonth',
+        events: function(fetchInfo, successCallback, failureCallback) {
+            if (!accessToken) {
+                return failureCallback("User not authenticated.");
             }
-        ],
-        eventClick: function(info) {
-            alert('Event: ' + info.event.title + '\nDescription: ' + info.event.extendedProps.description);
+            fetch('/calendar/events', {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                successCallback(data);
+            })
+            .catch(error => failureCallback(error));
         },
-        selectable: true,
-        dateClick: function(info) {
-            var eventTitle = prompt('Enter Event Title:');
-            if (eventTitle) {
-                calendar.addEvent({
-                    title: eventTitle,
-                    start: info.dateStr,
-                    allDay: true
-                });
+        eventClick: function(info) {
+            // Open modal and populate event details
+            document.getElementById('modal-event-title').textContent = info.event.title;
+            document.getElementById('modal-event-details').textContent = `
+                Start: ${info.event.start}
+                End: ${info.event.end}
+                Location: ${info.event.extendedProps.location}
+                Description: ${info.event.extendedProps.description}
+            `;
+            document.getElementById('event-modal').classList.remove('hidden');
+            document.getElementById('upload-assignment-button').onclick = function() {
+                uploadAssignment(info.event.id);
             }
         }
     });
     calendar.render();
-});
 
+    // Calendar upload
+    document.getElementById('upload-button').addEventListener('click', function() {
+        var fileInput = document.getElementById('calendar-upload').files[0];
+        if (fileInput) {
+            uploadCalendar(fileInput);
+        }
+    });
 
-document.getElementById('uploadButton').addEventListener('click', function() {
-    const imageInput = document.getElementById('imageInput');
-    if (imageInput.files && imageInput.files[0]) {
-        const reader = new FileReader();
+    // Close event modal
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.getElementById('event-modal').classList.add('hidden');
+    });
 
-        reader.onload = function(e) {
-            // Display the uploaded image
-            const imagePreview = document.getElementById('imagePreview');
-            imagePreview.innerHTML = '<img src="' + e.target.result + '" alt="Uploaded Image" style="max-width: 200px;">';
+    // Authentication handlers
+    document.getElementById('login-button').addEventListener('click', login);
+    document.getElementById('logout-button').addEventListener('click', logout);
 
-            // Optionally, create a new event in the calendar with the uploaded image.
-            var eventTitle = prompt('Enter Event Title for the image:');
-            if (eventTitle) {
-                calendar.addEvent({
-                    title: eventTitle,
-                    start: new Date(),  // Using current date as an example, you can modify this as needed
-                    description: 'Uploaded image event',
-                    extendedProps: {
-                        image: e.target.result // Store image data in the event
-                    }
-                });
-            }
-        };
-
-        reader.readAsDataURL(imageInput.files[0]); // Convert image file to data URL
+    // Check if user is authenticated on page load
+    if (localStorage.getItem('accessToken')) {
+        accessToken = localStorage.getItem('accessToken');
+        document.getElementById('login-button').classList.add('hidden');
+        document.getElementById('logout-button').classList.remove('hidden');
     }
 });
 
-document.getElementById('uploadButton').addEventListener('click', () => {
-    const file = document.getElementById('imageInput').files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            document.getElementById('imagePreview').innerHTML = `<img src="${e.target.result}" style="max-width: 200px;">`;
-            const eventTitle = prompt('Enter Event Title for the image:');
-            if (eventTitle) calendar.addEvent({
-                title: eventTitle,
-                start: new Date(),
-                description: 'Uploaded image event',
-                extendedProps: { image: e.target.result }
-            });
-        };
-        reader.readAsDataURL(file);
+// Upload calendar to server
+function uploadCalendar(file) {
+    if (!accessToken) {
+        alert("Please log in first.");
+        return;
     }
-});
+
+    var formData = new FormData();
+    formData.append("file", file);
+
+    fetch('/upload/calendar', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Calendar uploaded successfully");
+        location.reload();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Failed to upload calendar.");
+    });
+}
+
+// Upload assignment for event
+function uploadAssignment(eventId) {
+    var fileInput = document.getElementById('assignment-upload').files[0];
+    if (!fileInput) {
+        alert("Please select an assignment to upload.");
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append("file", fileInput);
+
+    fetch(`/upload/assignment/${eventId}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Assignment uploaded successfully");
+        document.getElementById('event-modal').classList.add('hidden');
+        location.reload();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Failed to upload assignment.");
+    });
+}
+
+// Login user and retrieve access token
+function login() {
+    const email = prompt("Email:");
+    const password = prompt("Password:");
+
+    fetch('/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.access_token) {
+            accessToken = data.access_token;
+            localStorage.setItem('accessToken', accessToken);
+            document.getElementById('login-button').classList.add('hidden');
+            document.getElementById('logout-button').classList.remove('hidden');
+            location.reload();
+        } else {
+            alert("Login failed.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Login failed.");
+    });
+}
+
+// Logout user
+function logout() {
+    accessToken = null;
+    localStorage.removeItem('accessToken');
+    document.getElementById('login-button').classList.remove('hidden');
+    document.getElementById('logout-button').classList.add('hidden');
+    location.reload();
+}

@@ -30,7 +30,12 @@ app.add_middleware(
 app.include_router(users.router, prefix="/users", tags=["users"])
 app.include_router(calendar.router, prefix="/calendar", tags=["calendar"])
 app.include_router(ai.router, prefix="/upload", tags=["ai"])
-app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/")
+async def serve_a_html():
+    return FileResponse("static/index.html")
+
+app.mount("/", StaticFiles(directory="static"), name="static")
 # app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
 # Root endpoint to serve 'a.html' from the 'static' directory
@@ -38,13 +43,10 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # async def serve_a_html():
 #     return FileResponse("static/a.html")
 
-@app.get("/")
-async def serve_a_html():
-    return FileResponse("static/a.html")
+# @app.get("/")
+# async def serve_a_html():
+#     return FileResponse("static/a.html")
 
-@app.get("/final")
-async def serve_a_html():
-    return FileResponse("static/final.html")
 
 
 # Create tables in the database
