@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.responses import FileResponse
 from app.api import users, calendar
 from app.db import models
 from app.db.database import engine
@@ -32,9 +33,17 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
 # Root endpoint to serve 'a.html' from the 'static' directory
+# @app.get("/")
+# async def serve_a_html():
+#     return FileResponse("static/a.html")
+
 @app.get("/")
 async def serve_a_html():
     return FileResponse("static/a.html")
+
+@app.get("/code")
+async def serve_a_html():
+    return FileResponse("static/code.html")
 
 
 # Create tables in the database
