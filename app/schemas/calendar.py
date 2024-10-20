@@ -43,7 +43,7 @@ class EventUploadResponse(BaseModel):
 
 class AIResponseUpdate(BaseModel):
     task_priority: str
-    work_blocks: List[str]  # List of work blocks to focus on specific tasks
+    work_blocks: List[str]
 
 class AssignmentUploadResponse(BaseModel):
     message: str

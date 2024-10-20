@@ -22,7 +22,6 @@ def encode_image(image: Image):
     Convert RGBA images to RGB to avoid transparency issues when saving as JPEG.
     """
     if image.mode == 'RGBA':
-        # Convert RGBA to RGB to remove the alpha channel
         image = image.convert('RGB')
     
     buffered = io.BytesIO()
@@ -42,7 +41,6 @@ def process_calendar_image(file):
     """
     file_extension = file.filename.split(".")[-1].lower()
 
-    # If the uploaded file is a PDF, convert it to images
     images = []
     if file_extension == "pdf":
         pdf_path = f"/tmp/{file.filename}"
@@ -50,14 +48,11 @@ def process_calendar_image(file):
             f.write(file.file.read())
         images = pdf_to_images(pdf_path)
     else:
-        # Assume the uploaded file is an image
         image = Image.open(file.file)
         images.append(image)
 
-    # Encode all images for sending to OpenAI
     encoded_images = [encode_image(image) for image in images]
 
-    # Construct the OpenAI prompt
     messages = [
         {
             "role": "system",
@@ -93,7 +88,6 @@ def process_calendar_image(file):
             }
         )
 
-    # Request event extraction from OpenAI
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=messages,
@@ -141,7 +135,6 @@ def process_assignment_pdf(file, event_id):
     """
     file_extension = file.filename.split(".")[-1].lower()
 
-    # If the uploaded file is a PDF, convert it to images
     images = []
     if file_extension == "pdf":
         pdf_path = f"/tmp/{file.filename}"
@@ -149,14 +142,11 @@ def process_assignment_pdf(file, event_id):
             f.write(file.file.read())
         images = pdf_to_images(pdf_path)
     else:
-        # Assume the uploaded file is an image
         image = Image.open(file.file)
         images.append(image)
 
-    # Encode all images for sending to OpenAI
     encoded_images = [encode_image(image) for image in images]
 
-    # Construct the OpenAI prompt
     messages = [
         {
             "role": "system",
@@ -192,7 +182,6 @@ def process_assignment_pdf(file, event_id):
             }
         )
 
-    # Request task priority and work block updates from OpenAI
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=messages,
@@ -231,7 +220,6 @@ def process_assignment_pdf(file, event_id):
         max_tokens=512
     )
 
-    # Parse and return the JSON response
     try:
         print(response.choices[0].message.content)
         ai_response = json.loads(response.choices[0].message.content)
