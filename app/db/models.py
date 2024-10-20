@@ -21,6 +21,28 @@ from app.config.settings import settings
 
 Base = declarative_base()
 
+class CalendarSource(Base):
+    __tablename__ = "calendar_sources"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User", back_populates="calendar_sources")
+    user_calendars = relationship("UserCalendar", back_populates="calendar_source")
+
+class UserCalendar(Base):
+    __tablename__ = "user_calendars"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    event_name = Column(Text, nullable=False)
+    start_time = Column(DateTime, nullable=False)
+    end_time = Column(DateTime, nullable=False)
+    location = Column(Text, nullable=True)
+    description = Column(Text, nullable=True)
+    source_id = Column(Integer, ForeignKey("calendar_sources.id"))
+    calendar_source = relationship("CalendarSource", back_populates="user_calendars")
+    user = relationship("User", back_populates="user_calendars")
+
 class User(Base):
     __tablename__ = "users"
 
@@ -31,6 +53,9 @@ class User(Base):
     profile_picture = Column(Text, nullable=True)
     password = Column(Text, nullable=False)
     
+    calendar_sources = relationship("CalendarSource", back_populates="user")
+    user_calendars = relationship("UserCalendar", back_populates="user")
+
 DATABASE_URL = settings.DATABASE_URL
 engine = create_engine(DATABASE_URL)
 

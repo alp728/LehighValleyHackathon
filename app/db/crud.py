@@ -2,7 +2,7 @@ import os
 import secrets
 import time
 from datetime import date, datetime, timedelta
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import boto3
 from botocore.exceptions import ClientError
@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 
 from app.config.settings import Settings
 from app.db import models
+from app.schemas.calendar import CalendarEventCreate, CalendarSourceCreate
 from app.schemas.user import UserCreate
 
 settings = Settings()
@@ -106,7 +107,7 @@ def delete_user(db: Session, user_id: int):
         if db_user.profile_picture:
             bucket_name = settings.BUCKET_NAME
             file_name = db_user.profile_picture.split("/")[-1]
-            delete_file_from_bucket(bucket_name, file_name)
+            # delete_file_from_bucket(bucket_name, file_name)
 
         db.delete(db_user)
         db.commit()
@@ -157,6 +158,43 @@ def update_user_password(db: Session, user_id: int, new_password: str):
 #         raise e
 #     except Exception as e:
 #         raise e
+
+# CRUD ops for calendar stuff
+def create_calendar_source(db: Session, user_id: int, source_data: CalendarSourceCreate):
+    calendar_source = models.CalendarSource(
+        source_name=source_data.source_name,
+        user_id=user_id,
+    )
+    db.add(calendar_source)
+    db.commit()
+    db.refresh(calendar_source)
+    return calendar_source
+
+def add_calendar_event(db: Session, event_data: CalendarEventCreate, source_id: Optional[int], user_id: int):
+    calendar_event = models.UserCalendar(
+        event_name=event_data.event_name,
+        start_time=event_data.start_time,
+        end_time=event_data.end_time,
+        location=event_data.location,
+        description=event_data.description,
+        source_id=source_id,
+        user_id=user_id
+    )
+    db.add(calendar_event)
+    db.commit()
+    db.refresh(calendar_event)
+    return calendar_event
+
+def get_user_calendar(db: Session, user_id: int):
+    return db.query(models.UserCalendar).filter(models.UserCalendar.user_id == user_id).all()
+
+def delete_calendar_source(db: Session, source_id: int, user_id: int):
+    source = db.query(models.CalendarSource).filter(models.CalendarSource.id == source_id, models.CalendarSource.user_id == user_id).first()
+    if not source:
+        raise HTTPException(status_code=404, detail="Source not found or does not belong to the user")
+    db.delete(source)
+    db.commit()
+    return source
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

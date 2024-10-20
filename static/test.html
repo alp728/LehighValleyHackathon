@@ -81,18 +81,51 @@
         <pre id="me-response"></pre>
     </div>
 
-    <!-- Upload Profile Picture -->
+    <!-- Create Calendar Source -->
     <div class="container">
-        <h3>Upload Profile Picture</h3>
-        <label for="profile-pic-file">Select Image</label>
-        <input id="profile-pic-file" type="file" />
-        <button onclick="uploadProfilePicture()">Upload Picture</button>
-        <pre id="picture-response"></pre>
+        <h3>Create Calendar Source</h3>
+        <label for="source-name">Source Name</label>
+        <input id="source-name" type="text" />
+
+        <button onclick="createCalendarSource()">Create Calendar Source</button>
+        <pre id="calendar-source-response"></pre>
+    </div>
+
+    <!-- Add Calendar Event -->
+    <div class="container">
+        <h3>Add Calendar Event</h3>
+        <label for="event-name">Event Name</label>
+        <input id="event-name" type="text" />
+
+        <label for="event-start">Start Time (YYYY-MM-DDTHH:MM:SS)</label>
+        <input id="event-start" type="datetime-local" />
+
+        <label for="event-end">End Time (YYYY-MM-DDTHH:MM:SS)</label>
+        <input id="event-end" type="datetime-local" />
+
+        <label for="event-location">Location</label>
+        <input id="event-location" type="text" />
+
+        <label for="event-description">Description</label>
+        <textarea id="event-description"></textarea>
+
+        <label for="source-id">Source ID</label>
+        <input id="source-id" type="number" placeholder="Optional, if linked to a specific source" />
+
+        <button onclick="addCalendarEvent()">Add Event</button>
+        <pre id="calendar-event-response"></pre>
+    </div>
+
+    <!-- Get Calendar Events -->
+    <div class="container">
+        <h3>Get Calendar Events</h3>
+        <button onclick="getCalendarEvents()">Get User Calendar Events</button>
+        <pre id="calendar-events-response"></pre>
     </div>
 
     <script>
         let token = '';
-        let userId = '';
+        let currentUserId = null;  // To store the current user's ID
 
         // Register a new user
         async function registerUser() {
@@ -118,12 +151,11 @@
             document.getElementById('register-response').textContent = JSON.stringify(data, null, 2);
         }
 
-        // Log in the user and fetch their details
+        // Log in the user
         async function loginUser() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
-            // Log in to get the JWT token
             const response = await fetch('/users/login', {
                 method: 'POST',
                 headers: {
@@ -134,15 +166,14 @@
 
             const data = await response.json();
             document.getElementById('login-response').textContent = JSON.stringify(data, null, 2);
-
             if (data.access_token) {
-                token = data.access_token; // Save token for authenticated requests
-                await fetchCurrentUser(); // Fetch the current user data after login
+                token = data.access_token;  // Save token for authenticated requests
+                getCurrentUser();  // Fetch current user info after login
             }
         }
 
-        // Fetch the current user data and store the user ID
-        async function fetchCurrentUser() {
+        // Get the current logged-in user
+        async function getCurrentUser() {
             const response = await fetch('/users/me', {
                 method: 'GET',
                 headers: {
@@ -152,38 +183,88 @@
 
             const data = await response.json();
             document.getElementById('me-response').textContent = JSON.stringify(data, null, 2);
-            userId = data.id; // Store the user ID for later use
-        }
 
-        // Get the current logged-in user
-        async function getCurrentUser() {
-            if (!userId) {
-                await fetchCurrentUser();
-            } else {
-                document.getElementById('me-response').textContent = "User ID already fetched: " + userId;
+            if (data.id) {
+                currentUserId = data.id;  // Store the user ID
             }
         }
 
-        // Upload profile picture using the stored user ID
-        async function uploadProfilePicture() {
-            const fileInput = document.getElementById('profile-pic-file');
-            const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
+        // Create a calendar source
+        async function createCalendarSource() {
+            const sourceName = document.getElementById('source-name').value;
 
-            if (!userId) {
-                await fetchCurrentUser();  // Ensure we have the user ID
+            if (!currentUserId) {
+                alert('User ID is missing. Please log in first.');
+                return;
             }
 
-            const response = await fetch('/users/picture/' + userId, {
+            const response = await fetch('/calendar/source', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
                 },
-                body: formData,
+                body: JSON.stringify({
+                    source_name: sourceName,
+                    user_id: currentUserId
+                }),
             });
 
             const data = await response.json();
-            document.getElementById('picture-response').textContent = JSON.stringify(data, null, 2);
+            document.getElementById('calendar-source-response').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Add a calendar event
+        async function addCalendarEvent() {
+            const eventName = document.getElementById('event-name').value;
+            const eventStart = document.getElementById('event-start').value;
+            const eventEnd = document.getElementById('event-end').value;
+            const eventLocation = document.getElementById('event-location').value;
+            const eventDescription = document.getElementById('event-description').value;
+            const sourceId = document.getElementById('source-id').value || null;
+
+            if (!currentUserId) {
+                alert('User ID is missing. Please log in first.');
+                return;
+            }
+
+            const response = await fetch('/calendar/event', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event_name: eventName,
+                    start_time: eventStart,
+                    end_time: eventEnd,
+                    location: eventLocation,
+                    description: eventDescription,
+                    source_id: sourceId,
+                    user_id: currentUserId
+                }),
+            });
+
+            const data = await response.json();
+            document.getElementById('calendar-event-response').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Get all calendar events for the current user
+        async function getCalendarEvents() {
+            if (!currentUserId) {
+                alert('User ID is missing. Please log in first.');
+                return;
+            }
+
+            const response = await fetch('/calendar/events', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+            });
+
+            const data = await response.json();
+            document.getElementById('calendar-events-response').textContent = JSON.stringify(data, null, 2);
         }
     </script>
 </body>

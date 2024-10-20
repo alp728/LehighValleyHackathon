@@ -124,56 +124,56 @@ def reset_password(
     updated_user = crud.update_user_password(db, user.id, data.new_password)
     return {"message": "Password updated successfully"}
 
-@router.post("/picture/{user_id}")
-async def change_profile_picture(
-    user_id: int,
-    file: UploadFile = File(...),
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(get_current_active_user),
-):
+# @router.post("/picture/{user_id}")
+# async def change_profile_picture(
+#     user_id: int,
+#     file: UploadFile = File(...),
+#     db: Session = Depends(get_db),
+#     current_user: models.User = Depends(get_current_active_user),
+# ):
 
-    user = crud.get_user_by_id(db, user_id)
-    if (
-        user.id == current_user.id
-    ):
-        try:
-            file_name = crud.upload_profile_picture(db, file, user)
-            return {
-                "message": "Profile picture changed successfully",
-                "file_name": file_name,
-            }
-        except Exception as e:
-            return {"error": str(e)}
-    raise HTTPException(status_code=403, detail="You do not have permission to do this")
+#     user = crud.get_user_by_id(db, user_id)
+#     if (
+#         user.id == current_user.id
+#     ):
+#         try:
+#             file_name = crud.upload_profile_picture(db, file, user)
+#             return {
+#                 "message": "Profile picture changed successfully",
+#                 "file_name": file_name,
+#             }
+#         except Exception as e:
+#             return {"error": str(e)}
+#     raise HTTPException(status_code=403, detail="You do not have permission to do this")
 
 
-@router.get("/picture/{user_id}")
-async def get_signed_url(
-    user_id: int,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(get_current_active_user),
-):
-    try:
-        user = crud.get_user_by_id(db, current_user.id)
-        if not user:
-            return JSONResponse(status_code=401, content={"error": "Unauthorized"})
+# @router.get("/picture/{user_id}")
+# async def get_signed_url(
+#     user_id: int,
+#     db: Session = Depends(get_db),
+#     current_user: models.User = Depends(get_current_active_user),
+# ):
+#     try:
+#         user = crud.get_user_by_id(db, current_user.id)
+#         if not user:
+#             return JSONResponse(status_code=401, content={"error": "Unauthorized"})
 
-        requested_user = crud.get_user_by_id(db, user_id)
-        if not requested_user:
-            raise HTTPException(status_code=404, detail="User not found")
+#         requested_user = crud.get_user_by_id(db, user_id)
+#         if not requested_user:
+#             raise HTTPException(status_code=404, detail="User not found")
 
-        if not requested_user.profile_picture:
-            return {"url": None}
+#         if not requested_user.profile_picture:
+#             return {"url": None}
 
-        file_name = requested_user.profile_picture.split("/")[-1]
-        url = crud.generate_signed_url(db, file_name)
-        return {"url": url}
-    except ClientError as e:
-        return JSONResponse(status_code=401, content={"error": "Unauthorized"})
-    except HTTPException as e:
-        raise e
-    except Exception as e:
-        return {"error": str(e)}
+#         file_name = requested_user.profile_picture.split("/")[-1]
+#         url = crud.generate_signed_url(db, file_name)
+#         return {"url": url}
+#     except ClientError as e:
+#         return JSONResponse(status_code=401, content={"error": "Unauthorized"})
+#     except HTTPException as e:
+#         raise e
+#     except Exception as e:
+#         return {"error": str(e)}
 
 
 @router.get("/{user_id}", response_model=UserResponse)

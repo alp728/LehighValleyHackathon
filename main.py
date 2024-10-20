@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, HTTPException
-from app.api import users
+from app.api import users, calendar
 from app.db import models
 from app.db.database import engine
 from fastapi.staticfiles import StaticFiles
@@ -27,6 +27,7 @@ app.add_middleware(
 
 # Include API routers
 app.include_router(users.router, prefix="/users", tags=["users"])
+app.include_router(calendar.router, prefix="/calendar", tags=["calendar"])
 app.mount("/static", StaticFiles(directory="static"), name="static")
 # app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
