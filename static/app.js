@@ -161,3 +161,19 @@ function logout() {
     document.getElementById('logout-button').classList.add('hidden');
     location.reload();
 }
+
+
+module.exports = {
+    theme: {
+      extend: {
+        colors: {
+          'blue-shade': '#7c97c8',
+          'object-blue': '#8ba9e',
+          'panel': '#ffffff',
+          'panel-shade': '#e4e4e4',
+          'backing': '#f7f7f7',
+        },
+      },
+    },
+    plugins: [],
+  }

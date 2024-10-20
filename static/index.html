@@ -16,27 +16,45 @@
         #calendar {
             z-index: 1;
         }
+        nav{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .function{
+            display: flex;
+            flex-direction: row;
+        }
+        #login-button:hover {
+            font-weight: bold;
+        }
+        #app-title:hover {
+        font-weight: 900; /* or you can use a higher number to make it extra bold */
+        }
     </style>
-</head>
-<body class="bg-gray-100">
-
+    </head>
+    <body class="bg-gray-100">
     <!-- Navbar -->
-    <nav class="bg-blue-300 p-4">
+    <nav class=" bg-blue-300 p-4">
+        <!-- bg-blue-300 -->
         <div class="container mx-auto flex justify-between items-center text-white">
-            <h1 class="text-lg font-semibold">AI Calendar App</h1>
+            <h1 id="app-title" class="text-lg font-semibold">AI Calendar App</h1>
             <div>
-                <button id="login-button" class="bg-green-500 p-2 rounded">Login</button>
-                <button id="logout-button" class="bg-red-500 p-2 rounded hidden">Logout</button>
+                <button id="login-button" class="bg-blue-500 p-2 rounded hover:font-bold">Sign In</button>
+                <!-- bg-blue-350  -->
+                <button id="logout-button" class="bg-blue-500 p-2 rounded hidden">Sign Out</button>
             </div>
         </div>
     </nav>
 
+   
+
+
+    <div class="function">
     <!-- Upload Section -->
     <section class="container mx-auto p-4 mt-6 bg-white shadow-md rounded-lg">
         <h2 class="text-2xl font-semibold mb-4">Upload Calendar File</h2>
         <div class="flex items-center space-x-4">
             <input type="file" id="calendar-upload" accept=".pdf, .jpg, .jpeg, .png" class="block w-full p-2 border border-gray-300 rounded">
-            <button id="upload-button" class="bg-blue-600 text-white p-2 rounded">Upload</button>
+            <button id="upload-button" class="bg-blue-500 text-white p-2 rounded">Upload</button>
         </div>
     </section>
 
@@ -44,6 +62,7 @@
     <section class="container mx-auto p-4 mt-6">
         <div id="calendar" class="bg-white shadow-md rounded-lg p-4"></div>
     </section>
+    </div>
 
     <!-- Modal for Event Details -->
     <div id="event-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -64,6 +83,8 @@
             </div>
         </div>
     </div>
+
+
 
     <script src="app.js"></script>
 </body>
