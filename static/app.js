@@ -21,7 +21,16 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.json())
             .then(data => {
-                successCallback(data);
+                // Map your response format to FullCalendar's expected format
+                const events = data.map(event => ({
+                    id: event.id,
+                    title: event.event_name,       // FullCalendar expects 'title'
+                    start: event.start_time,       // FullCalendar expects 'start'
+                    end: event.end_time || null,   // FullCalendar expects 'end', make it optional if not provided
+                    location: event.location,      // Add extendedProps if you have more fields
+                    description: event.description
+                }));
+                successCallback(events);  // Pass the transformed events to FullCalendar
             })
             .catch(error => failureCallback(error));
         },
@@ -29,19 +38,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         
         eventClick: function(info) {
-            // Open modal and populate event details
+            // Populate event details in the modal
             document.getElementById('modal-event-title').textContent = info.event.title;
-            document.getElementById('modal-event-details').textContent = `
-                Start: ${info.event.start}
-                End: ${info.event.end}
-                Location: ${info.event.extendedProps.location}
-                Description: ${info.event.extendedProps.description}
-            `;
+            document.getElementById('modal-event-start').textContent = info.event.start.toISOString();
+            document.getElementById('modal-event-end').textContent = info.event.end ? info.event.end.toISOString() : 'N/A';
+            document.getElementById('modal-event-location').textContent = info.event.extendedProps.location || 'Not specified';
+            document.getElementById('modal-event-description').textContent = info.event.extendedProps.description || 'No description available';
+            
+            // Show the modal
             document.getElementById('event-modal').classList.remove('hidden');
+            
+            // Set up the upload assignment button handler
             document.getElementById('upload-assignment-button').onclick = function() {
                 uploadAssignment(info.event.id);
             }
         }
+        
     });
     calendar.render();
 

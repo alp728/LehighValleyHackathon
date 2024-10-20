@@ -101,7 +101,7 @@ def process_calendar_image(file):
             "type": "json_schema",
             "json_schema": {
                 "name": "event_extraction",
-                "description": "Extract calendar events from provided images or PDFs. if data is cut off you can try to extrapolate it within reason. timestamps MUST be in iso format ex. 2023-08-21T07:55:00",
+                "description": "Extract calendar events from provided images or PDFs. if data is cut off you can try to extrapolate it within reason. the year is 2024, timestamps MUST be in iso format ex. 2024-08-21T07:55:00",
                 "schema": {
                     "type": "object",
                     "properties": {
@@ -200,7 +200,7 @@ def process_assignment_pdf(file, event_id):
             "type": "json_schema",
             "json_schema": {
                 "name": "task_priority_update",
-                "description": "Task priority and work block updates for a student's assignment",
+                "description": "Task priority and work block updates for a student's assignment, the year is 2024",
                 "schema": {
                     "type": "object",
                     "properties": {
