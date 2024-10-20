@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+}
+
+.header {
+    text-align: center;
+    padding: 10px;
+    background-color: #E0E7F1;
+}
+
+#calendar-container {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #FFFFFF;
+}
+
+#calendar {
+    margin-top: 20px;
+}
+
+.file-upload {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.file-upload h3 {
+    background-color: #A9C0E2;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.file-upload ul {
+    list-style: none;
+    margin: 15px 0;
+}
+
+.file-upload ul li {
+    margin: 5px 0;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #8BA3D1;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #748CB8;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #A9C0E2;
+    margin-top: 50px;
+}
+
+footer p {
+    font-size: 14px;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+.login-form {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.login-form input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-buttons button {
+    width: 45%;
+    margin: 10px 5px;
+}
