@@ -61,7 +61,7 @@ section{
     font-size: 1.2rem;
     position: sticky;
     top: 0;
-    /* z-index: 999; */
+    z-index: 999; 
     color:mediumseagreen;
   }
   
@@ -289,13 +289,11 @@ section{
   .main {
     background-color: #e4e4e4;
      /* #b7a6a6; */
-    padding: 1rem;
+    /* padding: 1rem; */
   }
   
   .main__container {
-    /* display: grid; */
     display: center;
-    /* grid-template-columns: 1fr 1fr;*/
     align-items: center;
     justify-content: center; 
     margin: 0 auto;
@@ -379,18 +377,6 @@ section{
   
   .main__img--container {
     text-align: center;
-  }
-  
-  .main__img--card {
-    margin: 10px;
-    height: 500px;
-    width: 500px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: #ffffff;
-    background-image: linear-gradient(to right, #00dbde 0%, #737273 100%);
   }
 
   .services {
@@ -566,4 +552,11 @@ section{
       padding: 10px;
       width: 100%;
     }
+  }
+
+
+
+  #calendar {
+    max-height: 600px; 
+    overflow-y: auto;
   }
