@@ -1,54 +1,17 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Kumbh Sans', sans-serif;
-    scroll-behavior: smooth;
-  }
-
-  #imageInput{
-    padding: 20px;
-  }
-
-  #uploadButton{
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-  }
-
-  #calendar {
-    width: 100%;
-    /* max-width: 1000px; */
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
 }
 
-section{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 90%;
-  text-align: center;
-  padding: 30px;
+h1, h2, h3 {
+  color: #333;
 }
 
-.navbar__links:hover {
-  color: #add8e6; /* Light blue hover effect */
-}
-
-/* Calendar Styles */
-#calendar {
-  width: 80%;
-  margin: 20px auto;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+.container {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
 }
 
   .navbar {
@@ -61,16 +24,10 @@ section{
     font-size: 1.2rem;
     position: sticky;
     top: 0;
-    z-index: 999;
+    /* z-index: 999; */
     color:mediumseagreen;
   }
   
-
-  #calendar {
-    max-height: 600px; /* Adjust height as necessary */
-    overflow-y: auto;
-  }
-
   .navbar__container {
     display: flex;
     justify-content: space-between;
@@ -573,17 +530,3 @@ section{
       width: 100%;
     }
   }
-
-  /* Style the custom file upload button */
-.custom-file-upload {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-family: sans-serif;
-  color: white;
-  background-color: #3f51b5;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
