@@ -41,9 +41,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def serve_a_html():
     return FileResponse("static/a.html")
 
-@app.get("/code")
+@app.get("/final")
 async def serve_a_html():
-    return FileResponse("static/code.html")
+    return FileResponse("static/final.html")
 
 
 # Create tables in the database
