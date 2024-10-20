@@ -39,6 +39,7 @@ class UserCalendar(Base):
     end_time = Column(DateTime, nullable=False)
     location = Column(Text, nullable=True)
     description = Column(Text, nullable=True)
+    task_priority = Column(Integer, nullable=True)
     source_id = Column(Integer, ForeignKey("calendar_sources.id"))
     calendar_source = relationship("CalendarSource", back_populates="user_calendars")
     user = relationship("User", back_populates="user_calendars")

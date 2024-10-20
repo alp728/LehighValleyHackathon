@@ -14,7 +14,7 @@
         label {
             font-weight: bold;
         }
-        input, textarea {
+        input, textarea, select {
             width: 100%;
             padding: 5px;
             margin-top: 5px;
@@ -79,6 +79,31 @@
         <h3>Get Current User</h3>
         <button onclick="getCurrentUser()">Get User Info</button>
         <pre id="me-response"></pre>
+    </div>
+
+    <!-- Upload Calendar Image or PDF -->
+    <div class="container">
+        <h3>Upload Calendar (Image/PDF)</h3>
+        <label for="calendar-file">Upload Calendar Image/PDF</label>
+        <input id="calendar-file" type="file" accept="image/*,.pdf" />
+
+        <button onclick="uploadCalendar()">Upload Calendar</button>
+
+        <pre id="calendar-upload-response"></pre>
+    </div>
+
+    <!-- Upload Assignment PDF -->
+    <div class="container">
+        <h3>Upload Assignment PDF for Event</h3>
+        <label for="assignment-file">Upload Assignment PDF</label>
+        <input id="assignment-file" type="file" accept=".pdf" />
+
+        <label for="event-id">Event ID</label>
+        <input id="event-id" type="number" placeholder="Enter the Event ID" />
+
+        <button onclick="uploadAssignment()">Upload Assignment</button>
+
+        <pre id="assignment-upload-response"></pre>
     </div>
 
     <!-- Create Calendar Source -->
@@ -187,6 +212,57 @@
             if (data.id) {
                 currentUserId = data.id;  // Store the user ID
             }
+        }
+
+        // Upload a calendar image or PDF
+        async function uploadCalendar() {
+            const fileInput = document.getElementById('calendar-file');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/upload/calendar', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                body: formData,
+            });
+
+            const data = await response.json();
+            document.getElementById('calendar-upload-response').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Upload an assignment PDF for a specific event
+        async function uploadAssignment() {
+            const fileInput = document.getElementById('assignment-file');
+            const file = fileInput.files[0];
+            const eventId = document.getElementById('event-id').value;
+
+            if (!file || !eventId) {
+                alert('Please select a file and enter an Event ID.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch(`/upload/assignment/${eventId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                body: formData,
+            });
+
+            const data = await response.json();
+            document.getElementById('assignment-upload-response').textContent = JSON.stringify(data, null, 2);
         }
 
         // Create a calendar source

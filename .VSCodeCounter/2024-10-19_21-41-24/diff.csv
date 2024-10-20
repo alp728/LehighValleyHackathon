@@ -1,0 +1,12 @@
+"filename", "language", "Python", "HTML", "CSS", "JavaScript", "comment", "blank", "total"
+"/Users/ilumn/Projects/LehighValleyHackathon/app/api/calendar.py", "Python", 20, 0, 0, 0, 0, 6, 26
+"/Users/ilumn/Projects/LehighValleyHackathon/app/db/crud.py", "Python", 41, 0, 0, 0, 2, 7, 50
+"/Users/ilumn/Projects/LehighValleyHackathon/app/db/models.py", "Python", 21, 0, 0, 0, 0, 4, 25
+"/Users/ilumn/Projects/LehighValleyHackathon/app/schemas/calendar.py", "Python", 26, 0, 0, 0, 0, 7, 33
+"/Users/ilumn/Projects/LehighValleyHackathon/main.py", "Python", 8, 0, 0, 0, 4, 4, 16
+"/Users/ilumn/Projects/LehighValleyHackathon/static/a.html", "HTML", 0, 87, 0, 0, 0, 13, 100
+"/Users/ilumn/Projects/LehighValleyHackathon/static/code.css", "CSS", 0, 0, 17, 0, 2, 3, 22
+"/Users/ilumn/Projects/LehighValleyHackathon/static/code.html", "HTML", 0, 4, 0, 0, 1, -1, 4
+"/Users/ilumn/Projects/LehighValleyHackathon/static/code.js", "JavaScript", 0, 0, 0, 46, 2, 6, 54
+"/Users/ilumn/Projects/LehighValleyHackathon/static/test.html", "HTML", 0, 101, 0, 0, 6, 22, 129
+"Total", "-", 116, 192, 17, 46, 17, 71, 459

@@ -1,0 +1,43 @@
+Date : 2024-10-19 21:41:24
+Directory : /Users/ilumn/Projects/LehighValleyHackathon
+Total : 10 files,  371 codes, 17 comments, 71 blanks, all 459 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| HTML       |          3 |        192 |          7 |         34 |        233 |
+| Python     |          5 |        116 |          6 |         28 |        150 |
+| JavaScript |          1 |         46 |          2 |          6 |         54 |
+| CSS        |          1 |         17 |          2 |          3 |         22 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                   |         10 |        371 |         17 |         71 |        459 |
+| . (Files)                                                           |          1 |          8 |          4 |          4 |         16 |
+| app                                                                 |          4 |        108 |          2 |         24 |        134 |
+| app/api                                                             |          1 |         20 |          0 |          6 |         26 |
+| app/db                                                              |          2 |         62 |          2 |         11 |         75 |
+| app/schemas                                                         |          1 |         26 |          0 |          7 |         33 |
+| static                                                              |          5 |        255 |         11 |         43 |        309 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                            | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/ilumn/Projects/LehighValleyHackathon/app/api/calendar.py     | Python     |         20 |          0 |          6 |         26 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/db/crud.py          | Python     |         41 |          2 |          7 |         50 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/db/models.py        | Python     |         21 |          0 |          4 |         25 |
+| /Users/ilumn/Projects/LehighValleyHackathon/app/schemas/calendar.py | Python     |         26 |          0 |          7 |         33 |
+| /Users/ilumn/Projects/LehighValleyHackathon/main.py                 | Python     |          8 |          4 |          4 |         16 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/a.html           | HTML       |         87 |          0 |         13 |        100 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/code.css         | CSS        |         17 |          2 |          3 |         22 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/code.html        | HTML       |          4 |          1 |         -1 |          4 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/code.js          | JavaScript |         46 |          2 |          6 |         54 |
+| /Users/ilumn/Projects/LehighValleyHackathon/static/test.html        | HTML       |        101 |          6 |         22 |        129 |
+| Total                                                               |            |        371 |         17 |         71 |        459 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+

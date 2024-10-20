@@ -4,6 +4,7 @@ import os
 class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
+    OPENAI_KEY: str
     # FE_ROOT: str
     DATABASE_URL: str
     REGION_NAME: str
