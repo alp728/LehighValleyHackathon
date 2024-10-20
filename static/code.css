@@ -46,3 +46,26 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
+
+
+/* Style for parallax sections */
+.parallax {
+    /* height: 100vh; Full-screen height */
+    background-size: cover; /* Cover entire section */
+    background-position: center;
+    background-attachment: fixed; /* Creates the parallax effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parallax .content {
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5); /* Optional background to improve text readability */}
+
+.content-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #f4f4f4;
+}

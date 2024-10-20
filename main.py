@@ -30,6 +30,12 @@ app.include_router(users.router, prefix="/users", tags=["users"])
 app.mount("/static", StaticFiles(directory="static"), name="static")
 # app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
+# Root endpoint to serve 'a.html' from the 'static' directory
+@app.get("/")
+async def serve_a_html():
+    return FileResponse("static/a.html")
+
+
 # Create tables in the database
 models.Base.metadata.create_all(bind=engine)
 
